@@ -1,8 +1,8 @@
 ##
 #	Makefile para construir el leector de archivos shape y generara el formato intermedio
 #	
-#	AAFR, GENEC, S.A. de C.V.
-#	22 de noviembre de 2003
+#	AAFR <alffore@gmail.com>
+#	2003-2013
 #
 
 CC= gcc -c
@@ -10,12 +10,12 @@ CLINKER= gcc -o
 
 CFLAGS= -O3 -Wall
 
-LIBS= -lshp
+LIBS= -lshp -lm
 
-OBJ= 	main.o \
-	saca_objetos.o \
-	saca_records.o \
-	imprime_xml.o
+OBJ= main.o \
+    saca_objetos.o \
+    saca_records.o \
+    imprime_xml.o
 
 OBJ2= dbfopen.o \
 	shpopen.o
@@ -29,24 +29,8 @@ all: clean $(OBJ)
 all2: clean $(OBJ) $(OBJ2)
 	$(CLINKER) $(DIR_BIN)shp2int.exe $(OBJ) $(OBJ2) $(CFLAGS)
 
-main.o:
-	$(CC) $(DIR_SRC)main.c $(CFLAGS)
-
-saca_objetos.o:
-	$(CC) $(DIR_SRC)saca_objetos.c $(CFLAGS)
-
-saca_records.o:
-	$(CC) $(DIR_SRC)saca_records.c $(CFLAGS)
-
-imprime_xml.o:
-	$(CC) $(DIR_SRC)imprime_xml.c $(CFLAGS)
-
-
-shpopen.o:
-	$(CC) $(DIR_SRC)shpopen.c $(CFLAGS)
-
-dbfopen.o:
-	$(CC) $(DIR_SRC)dbfopen.c $(CFLAGS)
+%.o: $(DIR_SRC)%.c
+	$(CC) $(CFLAGS)  $<
 
 install:
 	
@@ -56,16 +40,15 @@ uninstall:
 	@rm ~/bin/shp2int.exe ~/bin/shp2int.sh -v
 
 docs: borradocs
-	doxygen shp2int.dox 
+	doxygen docs/shp2int.dox 
 
 
 borradocs:
 
-	@rm -rf docs
-	@mkdir docs
+	@rm -rf docs/html
+	
 
 clean:
-#	@elim
 	@rm -rfv *.o
 
 sc: clean
