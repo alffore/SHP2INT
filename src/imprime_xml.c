@@ -2,7 +2,7 @@
  * 
  * @file imprime_xml.c
  * 
- * Este codigo concentra todo el manejo de XML
+ * Este código concentra todo el manejo de XML
  * 
  * @author AAFR
  * @version 1.0
