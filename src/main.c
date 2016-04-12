@@ -57,7 +57,7 @@ int main(int argc, char ** argv) {
 
 void uso(void) {
 
-    fprintf(stderr, "shp2int.exe <lista de shapes a convertir a formato interno sin extensin>\n");
+    fprintf(stderr, "shp2int.exe <lista de shapes a convertir a formato interno sin extensión>\n");
 
 }
 

@@ -69,7 +69,7 @@ int SacaObjeto(SHPHandle shph, char *nomarch, FILE *ae, FILE *aex, int objeto);
  */
 int SacaObjetoU(SHPO shpo, char *nomarch, FILE *ae, FILE *aex, int objeto, int i_parte, int f_parte, double *X, double *Y);
 
-int SacaObjetos(char *  nomarch) {
+int SacaObjetos(char * nomarch) {
     SHPHandle shph;
     int *pnEnt = NULL;
     int *pnTEnt = NULL;
@@ -88,33 +88,33 @@ int SacaObjetos(char *  nomarch) {
     FILE *aex = NULL;
 
     printf("Comienza la extraccion de objetos. \n");
-    
+
     char *buff = (char *) calloc(1000, sizeof (char));
 
 
     //apertura del archivo de salida en formato intermedio
     archsal = (char *) calloc(500, sizeof (char));
     sprintf(archsal, "%s.int", nomarch);
-    printf("Archivo INT: %s\n",archsal);
+    printf("Archivo INT: %s\n", archsal);
     ae = (FILE *) fopen(archsal, "w");
 
     //apertura del archivo de salida xml (diccionario)
     archsalx = (char *) calloc(500, sizeof (char));
     sprintf(archsalx, "%s.xml", nomarch);
-    printf("Archivo XML: %s\n",archsalx);
+    printf("Archivo XML: %s\n", archsalx);
     aex = (FILE *) fopen(archsalx, "w");
     imprimeHeaderXML(aex);
 
     //apertura del archivo de shapefile
-    
-     printf("Archivo general: %s\n",nomarch);
-    
+
+    printf("Archivo general: %s\n", nomarch);
+
     archshp = (char *) calloc(strlen(nomarch) + 10, sizeof (char));
     sprintf(archshp, "%s.shp", nomarch);
 
-     printf("Archivo SHP: %s\n",archshp);
-    
-    
+    printf("Archivo SHP: %s\n", archshp);
+
+
     shph = SHPOpen(archshp, "rb");
     SHPGetInfo(shph, pnEnt, pnTEnt, dmin, dmax); //carga el encabezado
 
@@ -137,7 +137,7 @@ int SacaObjetos(char *  nomarch) {
     if (archshp)free(archshp);
 
 
-   imprimeFooterXML(aex);
+    imprimeFooterXML(aex);
     if (aex)fclose(aex);
     if (archsalx)free(archsalx);
 
@@ -180,8 +180,6 @@ int SacaObjeto(SHPHandle shph, char *nomarch, FILE *ae, FILE *aex, int objeto) {
 
         for (p = 0; p < shpo->nParts; p++) {
 
-            // shpo = SHPReadObject(shph, objeto);
-
             i_parte = *(shpo->panPartStart + p);
 
             if ((p + 1) == shpo->nParts) {
@@ -204,10 +202,6 @@ int SacaObjeto(SHPHandle shph, char *nomarch, FILE *ae, FILE *aex, int objeto) {
     if (shpo)free(shpo);
     return 1;
 }
-
-
-
-
 
 int SacaObjetoU(SHPO shpo, char *nomarch, FILE *ae, FILE *aex, int objeto, int i_parte, int f_parte, double *X, double *Y) {
 
